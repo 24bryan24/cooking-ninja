@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
+import { useTheme } from '../hooks/useTheme'
 
 import './RecipeList.css'
 
 export default function RecipeList({ recipes }) {
+
+  const { color } = useTheme()
 
   if(recipes.length === 0) {
       return (
@@ -17,7 +20,7 @@ export default function RecipeList({ recipes }) {
               <h3 className='title'>{recipe.title}</h3>
               <p>{`-${recipe.cookingTime}-`}</p>
               <div className='method'>{recipe.method.substring(0,100)}...</div>
-              <Link to={`/recipes/${recipe.id}`}>Cook this!</Link>
+              <Link  style={{ background: color, color: 'white' }} to={`/recipes/${recipe.id}`}>Cook this!</Link>
             </div>
           ) )
         }

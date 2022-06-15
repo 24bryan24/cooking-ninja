@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useTheme } from '../hooks/useTheme'
 
 // styles
@@ -23,20 +23,20 @@ export default function Navbar() {
 		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
 		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-      const { color, changeColor } = useTheme()
-      
+  const { color } = useTheme()
+  console.log(useTheme(), color)
 
-  const [colorPick, setColorPick] = useState(color);
+  // const [colorPick, setColorPick] = useState(color);
 
-  const handleHover = () => {
-    setColorPick(colors[Math.floor(Math.random() * 50)]);
-    console.log(colors[Math.floor(Math.random() * 50)])
-  }
+  // const handleHover = () => {
+  //   setColorPick(colors[Math.floor(Math.random() * 50)]);
+  //   console.log(colors[Math.floor(Math.random() * 50)])
+  // }
 
 
   return (
-    <div className='navbar' style={{ background: colorPick || color }}>
-        <nav onMouseOver={handleHover} onClick={() => changeColor('pink')}>
+    <div className='navbar' style={{ background: color }}>
+        <nav>
             <Link to="/" className='brand'>
                 <h1>Cooking Ninja</h1>
             </Link>

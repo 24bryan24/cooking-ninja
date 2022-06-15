@@ -5,9 +5,14 @@ import { useState, useRef, useEffect } from 'react'
 import { useFetch } from '../../hooks/useFetch';
 import Draggable from 'react-draggable';
 import { useHistory } from 'react-router-dom'
+import { useTheme } from '../../hooks/useTheme'
+
 
 
 export default function Create() {
+
+  const { color } = useTheme()
+
   const [title, setTitle] = useState('')
   const [method, setMethod] = useState('')
   const [cookingTime, setCookingTime] = useState('')
@@ -91,8 +96,8 @@ export default function Create() {
               // required 
               />
               </Draggable>
-            <button className='btn' onClick={(e) => handleAdd(e)}>add</button>
-            <button className='btn' onClick={(e) => handleClear(e)}>clear</button>
+            <button style={{ background: color }} className='btn' onClick={(e) => handleAdd(e)}>add</button>
+            <button style={{ background: color }} className='btn' onClick={(e) => handleClear(e)}>clear</button>
           </div>
         </label>
 
@@ -130,7 +135,7 @@ export default function Create() {
           />
         </label>
 
-        <button className='btn' type='submit'>submit</button>
+        <button style={{ background: color }} className='btn' type='submit'>submit</button>
 
     </form> 
     </div>

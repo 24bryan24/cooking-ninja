@@ -1,10 +1,14 @@
 import { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useTheme } from '../hooks/useTheme'
 
 // styles
 import './Searchbar.css'
 
 export default function Searchbar() {
+
+    const { color } = useTheme()
+
     const [term, setTerm] = useState('')
     const history = useHistory()
     const searchBarRef = useRef()
@@ -24,6 +28,7 @@ export default function Searchbar() {
                 id='search'
                 onChange={(e) => setTerm(e.target.value)}
                 ref={searchBarRef}
+                style={{ color: color }}
                 required
             />
         </form>

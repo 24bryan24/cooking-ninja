@@ -6,8 +6,11 @@ import './Search.css'
 // components
 
 import RecipeList from '../../components/RecipeList'
+import { useTheme } from '../../hooks/useTheme'
 
 export default function Search({ data }) {
+
+  const { color } = useTheme()
 
   const [searchTerm, setSearchTerm] = useState('')
   const [newData, setNewData] = useState('')
@@ -31,9 +34,10 @@ export default function Search({ data }) {
             onChange={(e) => handleSearch(e)}
             value={searchTerm}
             placeholder="Search..."
+            style={{ color: color, borderBlockColor: color, borderBlockWidth: '2px' }}
           />
         </label>
-        <p>{searchTerm}</p>
+        {/* <p>{searchTerm}</p> */}
         {newData && <RecipeList recipes={newData}/>}
     </div>
   )
