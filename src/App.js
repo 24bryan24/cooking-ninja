@@ -8,13 +8,19 @@ import Recipe from './pages/recipe/Recipe'
 import Navbar from './components/Navbar'
 import ThemeSelector from './components/ThemeSelector'
 
+// custom hooks
+import { useTheme } from './hooks/useTheme'
+
 
 // styles
 import './App.css'
 
 function App() {
+
+  const { darkMode } = useTheme()
+
   return (
-    <div className="App">
+    <div className="App" style={ darkMode ? { background: '#484848'} : {} }>
     
       <BrowserRouter>
         <Navbar />

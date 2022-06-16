@@ -5,7 +5,7 @@ import './RecipeList.css'
 
 export default function RecipeList({ recipes }) {
 
-  const { color } = useTheme()
+  const { color, darkMode } = useTheme()
 
   if(recipes.length === 0) {
       return (
@@ -16,7 +16,7 @@ export default function RecipeList({ recipes }) {
   return (
     <div className='recipe-list'>
           {recipes.map(recipe => (
-            <div key={recipe.id} className="card">
+            <div key={recipe.id} className="card" style={ darkMode ? { background: '#333', color: 'white' } : { border: `3px solid ${color}` } }>
               <h3 className='title'>{recipe.title}</h3>
               <p>{`-${recipe.cookingTime}-`}</p>
               <div className='method'>{recipe.method.substring(0,100)}...</div>
