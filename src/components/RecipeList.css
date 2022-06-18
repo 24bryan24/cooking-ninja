@@ -4,6 +4,7 @@
   grid-gap: 40px;
   max-width: 1200px;
   margin: 40px auto;
+  text-align: center;
 }
 .recipe-list .card {
   background: #fff;
@@ -42,4 +43,24 @@
   padding: 8px;
   border-radius: 4px;
   margin: 20px auto 0;
+}
+.delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  filter: invert(60%);
+  width: 25px;
+  height: 25px;
+}
+
+
+//dark mode
+.recipe-list .card.dark {
+  background: #555;
+}
+.recipe-list .card.dark p,
+.recipe-list .card.dark h3,
+.recipe-list .card.dark div {
+  color: #e4e4e4;
 }

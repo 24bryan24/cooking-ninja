@@ -7,6 +7,7 @@ import Search from './pages/search/Search'
 import Recipe from './pages/recipe/Recipe'
 import Navbar from './components/Navbar'
 import ThemeSelector from './components/ThemeSelector'
+import Footer from './components/Footer'
 
 // custom hooks
 import { useTheme } from './hooks/useTheme'
@@ -39,6 +40,7 @@ function App() {
             <Recipe />
           </Route>
         </Switch>
+        <Footer />
       </BrowserRouter>
 
     </div>

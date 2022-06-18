@@ -22,7 +22,6 @@ export default function Search({ data }) {
   useEffect(() => {
     if(data) {
     setNewData(data.filter(datum => datum.title.includes(searchTerm) || datum.method.includes(searchTerm) || datum.ingredients.includes(searchTerm)))
-    console.log(data[1].ingredients, data[1].ingredients.includes('Tomata pasata'))
     }
   }, [data, searchTerm])
 
@@ -30,6 +29,7 @@ export default function Search({ data }) {
     <div>
         <label>
           <input 
+            className='searchbar-two'
             type="text" 
             onChange={(e) => handleSearch(e)}
             value={searchTerm}

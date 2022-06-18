@@ -2,16 +2,15 @@
 import './Create.css'
 
 import { useState, useRef, useEffect } from 'react'
-import { useFetch } from '../../hooks/useFetch';
+import { projectFirestore } from '../../firebase/config'
 import Draggable from 'react-draggable';
 import { useHistory } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
 
 
-
 export default function Create() {
 
-  const { color } = useTheme()
+  const { color, darkMode } = useTheme()
 
   const [title, setTitle] = useState('')
   const [method, setMethod] = useState('')
@@ -21,21 +20,16 @@ export default function Create() {
   const ingredientInput = useRef(null)
   const history = useHistory()
 
-  const { postData, data, error, isPending } = useFetch('http://localhost:3000/recipes', "POST")
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    postData({
-      title,
-      ingredients,
-      method,
-      cookingTime: cookingTime + ' minutes'
-    })
-    setTitle('')
-    setMethod('')
-    setCookingTime('')
-    setNewIngredient('')
-    setIngredients('')
+    const doc = { title, ingredients, method, cookingTime: cookingTime + ' minutes' }
+
+    try {
+      await projectFirestore.collection('recipes').add(doc)
+      history.push('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handleAdd = (e) => {
@@ -59,15 +53,30 @@ export default function Create() {
 
   console.log(title, ingredients, method, cookingTime, newIngredient)
 
-  useEffect(() => {
-      if (data) {
-        history.push('/')
-      }
-    }, [data])
+  const createDummyData = () => {
+    const dummy = [
+      {cookingTime: 2, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Zoombox"},
+      {cookingTime: 3, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Innotype"},
+      {cookingTime: 4, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Yodo"},
+      {cookingTime: 5, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Chatterpoint"},
+      {cookingTime: 6, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Youspan"},
+      {cookingTime: 1, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Mynte"},
+      {cookingTime: 7, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Dabjam"},
+      {cookingTime: 8, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Mudo"},
+      {cookingTime: 9, ingredients: [1,2,3,4,5,6,7,8,9,10], method:"Do this, then that...and then bang! Do this, then that...and bang! Do this, then that...and bang! WHAT!jdjfjdfjsjfdjfldjfdsjfldjfljf",title:"Eidel"}
+  ];
 
+  try {
+  dummy.forEach(dum => projectFirestore.collection('recipes').add(dum))
+  history.push('/')
+    } catch (err) {
+      console.log(err)
+    }
+}
 
   return (
-    <div className='create'>
+    <div className='create' style={ darkMode ? { background: '#333', color: 'white' } : { border: `3px solid ${color}` } }>
+      <button onClick={createDummyData}>Dummy Data</button>
       <h2 className='page-title'>Add a new recipe</h2>
       
       <form onSubmit={(e) => handleSubmit(e)}>

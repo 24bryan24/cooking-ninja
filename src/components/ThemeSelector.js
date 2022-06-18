@@ -15,13 +15,13 @@ import './ThemeSelector.css'
 // 		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
 // 		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-    const themeColors = ['#58249c', '#249c6b', '#b70233']; 
+    const themeColors = ['#58249c', '#249c6b', '#b70233', '#EFC050', '#34568B', '#DD4124']; 
 
 export default function ThemeSelector() {
     console.log('is this re-rendering everytime I click one of the color icons?')
 
     const { darkMode, changeColor, changeMode } = useTheme()
-    // console.log('24', darkMode)
+    console.log('24', darkMode)
 
   return (
     <div className='theme-selector'>
