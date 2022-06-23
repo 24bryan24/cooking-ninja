@@ -18,7 +18,7 @@ export default function Recipe() {
   useEffect(() => {
     setIsPending(true)
 
-    projectFirestore.collection('recipes').doc(id).get().then(doc => {
+    const unsubscribe = projectFirestore.collection('recipes').doc(id).onSnapshot(doc => {
       if(doc.exists) {
         setIsPending(false)
         setRecipe(doc.data())
@@ -26,9 +26,15 @@ export default function Recipe() {
         setIsPending(false)
         setError('Could not find that recipe, Sir!')
       }
-      console.log("🚀 | file: Recipe.js | line 31 | projectFirestore.collection | doc", doc,doc.data())
     })
+
+    return () => unsubscribe()
   }, [id])
+
+  const handleClick = async () => {
+      await projectFirestore.collection('recipes').doc(id).update({title: "I changed again....ahahahaha"})
+  }
+
 
   return (
     <div className='recipe' style={ darkMode ? { background: '#333', color: 'white' } : { border: `3px solid ${color}` } }>
@@ -44,6 +50,7 @@ export default function Recipe() {
               ))}
             </ul>
             <p>Preparation Method: {recipe.method}</p> 
+            <button onClick={handleClick}>Change Title</button>
           </>
       )}
     </div>

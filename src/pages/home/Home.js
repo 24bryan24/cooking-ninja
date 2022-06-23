@@ -7,8 +7,11 @@ import './Home.css'
 // components
 // import RecipeList from '../../components/RecipeList'
 import SearchCopy from '../search/Search copy'
+import { useTheme } from '../../hooks/useTheme'
 
 export default function Home() {
+
+  const { font } = useTheme()
 
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
@@ -17,7 +20,7 @@ export default function Home() {
   useEffect(() => {
     setIsPending(true);
 
-    projectFirestore.collection('recipes').get().then((snapshot) => {
+    const unsubscribe = projectFirestore.collection('recipes').onSnapshot(snapshot => {
         if(snapshot.empty) {
           setError('No recipes to load!');
         } else {
@@ -28,14 +31,17 @@ export default function Home() {
           setData(results)
           setIsPending(false)
         }
-    }).catch(err => {
-          setError(err.message)
-          setIsPending(false)
+    }, (err) => {
+      setError(err.message)
+      setIsPending(false)
     })
-  }, [data])
+
+    return () => unsubscribe()
+
+  }, [])
 
   return (
-    <div className='home'>
+    <div style={ { fontFamily: font } } className='home'>
         <SearchCopy data={data}/>
         {error && <p className='error'>{error}</p>}
         {isPending && <p className='loading'>Loading...</p>}

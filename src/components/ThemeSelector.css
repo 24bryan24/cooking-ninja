@@ -21,3 +21,11 @@
     height: 24px;
     cursor: pointer;
 }
+.font-toggle {
+    margin-right: auto;
+}
+.font-toggle img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
